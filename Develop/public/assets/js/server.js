@@ -8,7 +8,7 @@ const writeFileAsync = util.promisify(fs.writeFile);
 var count = 1;
 //Setup server
 var app = express();
-var PORT = 3250;
+var PORT = process.env.PORT || 3250;
 
 //Allow data parsing for API
 app.use(express.urlencoded({ extended: true }));
