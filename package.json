@@ -1,14 +1,12 @@
 {
   "name": "note-taker",
   "version": "1.0.0",
-  "description": "",
+  "description": "Allows user to save notes",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+     "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "node server.js"
   }
 }
