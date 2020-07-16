@@ -16,22 +16,23 @@ app.use(express.json());
 var notes = [];
 
 //Make all files public on server. This allows files in public folder to access each other
-app.use(express.static(path.join(__dirname, "../../")));
+app.use(express.static(path.join(__dirname, "/public")));
 
 //Create routes
+console.log(path.join(__dirname, "public/index.html"));
 
 app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../../index.html"));
+    res.sendFile(path.join(__dirname, "public/index.html"));
   });
 
 app.get("/notes", function(req, res) {
-  res.sendFile(path.join(__dirname, "../../notes.html"));
+  res.sendFile(path.join(__dirname, "public/notes.html"));
 });
 
 // Displays notes api
 //Need to parse JSON since reading from file to put back in object type
 app.get("/api/notes", function(req, res) {
-  readFileAsync("../../../db/db.json", "utf-8").then((dbContents) =>{
+  readFileAsync("./db/db.json", "utf-8").then((dbContents) =>{
     return res.json(JSON.parse(dbContents));
   }).catch((err) =>{
     console.log("error", err)
@@ -43,7 +44,7 @@ app.post("/api/notes", function(req, res){
   var newNote = req.body;
   newNote.id = count.toString();
   notes.push(newNote);
-  writeFileAsync("../../../db/db.json", JSON.stringify(notes)).then(() =>{
+  writeFileAsync("./db/db.json", JSON.stringify(notes)).then(() =>{
     count++;
     return res.json(newNote);
   }).catch((err)=>{
@@ -54,7 +55,7 @@ app.post("/api/notes", function(req, res){
 //read file and determine which id corresponds to the triggered event, remove this note from array
 app.delete("/api/notes/:id", function(req, res){
   var deleteID = req.params.id;
-  readFileAsync("../../../db/db.json", "utf-8").then((dbContents) =>{
+  readFileAsync("./db/db.json", "utf-8").then((dbContents) =>{
     notes = (JSON.parse(dbContents));
     console.log(notes);
     for(var i = 0; i < notes.length; i++){
@@ -66,7 +67,7 @@ app.delete("/api/notes/:id", function(req, res){
   }).then(()=>{
     //Re-write file without deleted note
     console.log(notes);
-    writeFileAsync("../../../db/db.json", JSON.stringify(notes))}).then(() =>{
+    writeFileAsync("./db/db.json", JSON.stringify(notes))}).then(() =>{
       return res.json(notes);
     }).catch((err)=>{
       console.log("error", err);
