@@ -19,7 +19,7 @@ For users that need to keep track of a lot of information, it's easy to forget o
 
 
 ## Screenshot
-[Image](Images/ss.png)
+![Image](Images/ss.png)
 
 
 
